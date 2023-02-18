@@ -2,7 +2,7 @@ import base64
 import pandas as pd
 import streamlit as st
 from pymongo import MongoClient
-from Scrape_twitter import scrape_twitter_data
+from tscrape import scrape_twitter_data
 
 # Define a function to upload data to MongoDB
 def upload_to_mongodb(data, mongodb_conn_str, twitter_scraping, scrapped):
