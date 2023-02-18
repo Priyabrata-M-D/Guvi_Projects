@@ -1,4 +1,3 @@
-# Guvi_Projects
 # Twitter Scraping
 This project is designed to scrape Twitter data based on user input and store it in a MongoDB database. The data can then be displayed in a Streamlit app and downloaded in CSV and JSON format.
 
