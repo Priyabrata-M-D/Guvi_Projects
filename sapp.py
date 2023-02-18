@@ -24,7 +24,6 @@ def main():
 
         # Upload data to MongoDB
         if st.button('Upload to MongoDB'):
-            upload_to_mongodb()
             mongodb_conn_str = st.text_input('MongoDB Connection String')
             db_name = st.text_input('Database Name')
             collection_name = st.text_input('Collection Name')

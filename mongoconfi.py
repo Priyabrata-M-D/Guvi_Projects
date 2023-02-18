@@ -2,12 +2,12 @@ from pymongo import MongoClient
 
 
 # Define a function to upload data to MongoDB
-def upload_to_mongodb(data, mongodb_conn_str, twitter_scraping, scrapped):
+def upload_to_mongodb(data, mongodb_conn_str, db_name, collection_name):
     # Connect to MongoDB
-    mongodb_conn_str=("mongodb+srv://dsa830dsa:Priy%408908@cluster0.o5d3gwp.mongodb.net/test")
+    mongodb_conn_str=(mongodb_conn_str)
     client = MongoClient(mongodb_conn_str)
-    db = client[twitter_scraping]
-    collection = db[scrapped]
+    db = client[db_name]
+    collection = db[collection_name]
     # Convert data to a list of dictionaries
     data_dict = data.to_dict('records')
     # Insert data into MongoDB
