@@ -18,5 +18,6 @@ To run this project, you will need to have the following installed:
 * The scraped data will be displayed in a table in the Streamlit app. You can click the "Download CSV" or "Download JSON" button to download the data in the respective format.
 
 ## Files
-* scrape_twitter.py: Python script to scrape Twitter data and upload it to MongoDB.
-* app.py: Streamlit app to display the scraped data and allow users to download it in CSV and JSON format.
+* tscrape.py: Python script to scrape Twitter data.
+* mongoconfi.py: Connect to MongoDB and upload it to DB.
+* sapp.py: Streamlit app to display the scraped data and allow users to download it in CSV and JSON format.
