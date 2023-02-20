@@ -4,7 +4,7 @@ from pymongo import MongoClient
 # Define a function to upload data to MongoDB
 def upload_to_mongodb(data, mongodb_conn_str, db_name, collection_name):
     # Connect to MongoDB
-    mongodb_conn_str=(mongodb_conn_str)
+    mongodb_conn_str=('mongodb://localhost:27017')
     client = MongoClient(mongodb_conn_str)
     db = client[db_name]
     collection = db[collection_name]

@@ -1,7 +1,6 @@
 The following packages are needed.
 
-1. snscrape== 'pip install snscrape'    (Used for Scraping data)
-2. pandas== 'pip install pandas'        (Used for Data frame after scraping)
-3. pymongo== 'pip install pymongo'      (To store the data in data base)
-4. dnspython== 'pip install dnspython'  (To download data in csv format)
-5. streamlit== 'pip install streamlit'  (to Run streamlit app)
+streamlit~=1.18.1
+snscrape~=0.5.0.20230114.dev8+g23ebdd2
+pandas~=1.5.2
+pymongo~=4.3.3
