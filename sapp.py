@@ -3,7 +3,6 @@ import streamlit as st
 from mongoconfi import upload_to_mongodb
 from tscrape import scrape_twitter_data
 
-
 # Define the Streamlit app
 def main():
     # Page title
@@ -27,7 +26,8 @@ def main():
             mongodb_conn_str = st.text_input('MongoDB Connection String')
             db_name = st.text_input('Database Name')
             collection_name = st.text_input('Collection Name')
-            result = upload_to_mongodb(tweets_df, mongodb_conn_str, db_name, collection_name)
+            data=tweets_df
+            result = upload_to_mongodb(data, mongodb_conn_str, db_name, collection_name)
 
             # Display result
             st.write(f'{len(result.inserted_ids)} documents uploaded to MongoDB')
@@ -45,6 +45,7 @@ def main():
         st.markdown('### Download JSON File')
         href = f'<a href="data:file/json;base64,{b64}" download="twitter_data.json">Download JSON</a>'
         st.markdown(href, unsafe_allow_html=True)
+
 
 if __name__=='__main__':
     main()
