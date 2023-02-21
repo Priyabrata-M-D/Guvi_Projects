@@ -1,7 +1,33 @@
 import base64
 import streamlit as st
-from mongoconfi import upload_to_mongodb
+import pandas as pd
 from tscrape import scrape_twitter_data
+from pymongo import MongoClient
+
+
+# Define a function to upload data to MongoDB
+def upload_to_mongodb(df):
+    # Connect to MongoDB
+    client = MongoClient('mongodb://localhost:27017')
+    db = client['twitter_scraping']
+    collection_name = 'scrapped1'
+    collection = db[collection_name]
+
+    # Drop the collection if it exists
+    if collection_name in db.list_collection_names():
+        db[collection_name].drop()
+        print(f"Dropped collection '{collection_name}'")
+
+    # Insert data into MongoDB
+    result = collection.insert_many(df.to_dict('records'))
+    print(f"Uploaded {len(result.inserted_ids)} documents to '{collection_name}'")
+
+    # Retrieve the uploaded data from MongoDB
+    uploaded_data = pd.DataFrame(list(collection.find()))
+    print(f"Retrieved {len(uploaded_data)} documents from '{collection_name}'")
+
+    return uploaded_data
+
 
 
 # Define the Streamlit app
@@ -19,14 +45,20 @@ def main():
     if st.button('Scrape'):
         tweets_df = scrape_twitter_data(hashtag, start_date, end_date, max_tweets)
 
+        # Create JSON file
+        json_file = 'tweets.json'
+        tweets_df.to_json(json_file, orient='records')
+
         # Display data in a table
         st.write(tweets_df)
 
         # Upload data to MongoDB
         if st.button('Upload to MongoDB'):
-            result = upload_to_mongodb(tweets_df)
+            uploaded_data = upload_to_mongodb(tweets_df)
             # Display result
-            st.write(f'{len(result.inserted_ids)} documents uploaded to MongoDB')
+            st.write(f'{len(uploaded_data)} documents uploaded to MongoDB')
+            # Display the uploaded data in a table
+            st.write('Uploaded Data:', uploaded_data)
 
         # Download data in CSV format
         csv = tweets_df.to_csv(index=False)
