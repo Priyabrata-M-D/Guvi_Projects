@@ -19,5 +19,4 @@ To run this project, you will need to have the following installed:
 
 ## Files
 * tscrape.py: Python script to scrape Twitter data.
-* mongoconfi.py: Connect to MongoDB and upload it to DB.
-* sapp.py: Streamlit app to display the scraped data and allow users to download it in CSV and JSON format.
+* sapp.py: Streamlit app to display the scraped data and allow users to download it in CSV and JSON format and Upload data to DB.
