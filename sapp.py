@@ -5,7 +5,8 @@ import pymongo
 from tscrape import scrape_twitter_data
 
 client = pymongo.MongoClient("mongodb+srv://PriyabrataDS:uwm4jJEcPYC1r0oV@cluster1.j9x92do.mongodb.net/test")
-db = client.project
+db = client.database1
+collections = db.scrapped
 try:
     print(client.server_info())
 except Exception:
@@ -14,15 +15,13 @@ except Exception:
 
 # Define a function to upload data to MongoDB
 def upload_to_mongodb(json_file):
-    # Connect to MongoDB
-    db.create_collection('scrapped')
     # Convert data to JSON records and Insert data into MongoDB
     with open(json_file, 'r') as f:
         data = json.load(f)
-    result = db.scrapped.insert_many(data)
+    db.scrapped.insert_many(data)
 
     # Retrieve the uploaded data from MongoDB
-    uploaded_data = list(db.scrapped.find())
+    uploaded_data = list(collections.find())
 
     return uploaded_data
 
