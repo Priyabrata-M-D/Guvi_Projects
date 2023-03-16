@@ -6,7 +6,7 @@ from tscrape import scrape_twitter_data
 # Connect to MongoDB
 client = pymongo.MongoClient("mongodb+srv://PriyabrataDS:uwm4jJEcPYC1r0oV@cluster1.j9x92do.mongodb.net/test")
 db = client['trial']
-collection = db['test654']
+test = db['Test']
 try:
     print(client.server_info())
 except Exception:
@@ -16,7 +16,7 @@ except Exception:
 # Define a function to upload data to MongoDB
 def upload_to_mongodb(data):
     # Insert data into MongoDB
-    result = collection.insert_many(data.to_dict('records'))
+    result = test.insert_many(data.to_dict('records'))
     # Display result
     st.write(f'{len(result.inserted_ids)} documents uploaded to MongoDB')
     return result
@@ -47,7 +47,7 @@ def main():
             st.success('Data uploaded to MongoDB.')
 
             # Display the uploaded data in a table
-            st.write(pd.DataFrame(list(collection.find())))
+            st.write(pd.DataFrame(list(test.find())))
 
         # Download data in CSV format
         st.download_button('Download CSV',
