@@ -35,7 +35,7 @@ def main():
 
         # Upload data to MongoDB
         if st.button('Upload to MongoDB'):
-            client = MongoClient('localhost',27017)
+            client = MongoClient('mongodb://localhost:27017/')
             db = client['twitter_scraping']
             collection = db['scrapped']
             result = upload_to_mongodb(tweets_df, collection)
