@@ -1,7 +1,9 @@
-import base64
 import streamlit as st
 from tscrape import scrape_twitter_data
-from pymongo import MongoClient
+import pymongo
+client = pymongo.MongoClient('mongodb://localhost:27017/')
+db = client['twitter_scraping']
+collection = db['scrapped']
 
 
 # Define a function to upload data to MongoDB
@@ -35,27 +37,21 @@ def main():
 
         # Upload data to MongoDB
         if st.button('Upload to MongoDB'):
-            client = MongoClient('mongodb://localhost:27017/')
-            db = client['twitter_scraping']
-            collection = db['scrapped']
             result = upload_to_mongodb(tweets_df, collection)
-
             # Display result
             st.write(f'{len(result.inserted_ids)} documents uploaded to MongoDB')
 
-        # Download data in CSV format
-        csv = tweets_df.to_csv(index=False)
-        b64 = base64.b64encode(csv.encode()).decode()
-        st.markdown('### Download CSV File')
-        href = f'<a href="data:file/csv;base64,{b64}" download="twitter_data.csv">Download CSV</a>'
-        st.markdown(href, unsafe_allow_html=True)
+         # Download data in CSV format
+        st.download_button('Download CSV',
+                           tweets_df.to_csv(),
+                           file_name='twitter_scrape.csv',
+                           mime="text/csv")
 
         # Download data in JSON format
-        json = tweets_df.to_json(orient='records')
-        b64 = base64.b64encode(json.encode()).decode()
-        st.markdown('### Download JSON File')
-        href = f'<a href="data:file/json;base64,{b64}" download="twitter_data.json">Download JSON</a>'
-        st.markdown(href, unsafe_allow_html=True)
+        st.download_button('Download JSON',
+                           tweets_df.to_json(),
+                           file_name='twitter_scrape.json',
+                           mime="text/json")
 
 
 if __name__=='__main__':
