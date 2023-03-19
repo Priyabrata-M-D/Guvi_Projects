@@ -1,12 +1,12 @@
+import json
 import streamlit as st
 import pandas as pd
 import pymongo
 from tscrape import scrape_twitter_data
 
-# Connect to MongoDB
 client = pymongo.MongoClient("mongodb+srv://PriyabrataDS:uwm4jJEcPYC1r0oV@cluster1.j9x92do.mongodb.net/test")
-db = client['trial']
-collection = db['test654']
+db = client.database1
+collections = db.scrapped
 try:
     print(client.server_info())
 except Exception:
@@ -14,12 +14,16 @@ except Exception:
 
 
 # Define a function to upload data to MongoDB
-def upload_to_mongodb(data):
-    # Insert data into MongoDB
-    result = collection.insert_many(data.to_dict('records'))
-    # Display result
-    st.write(f'{len(result.inserted_ids)} documents uploaded to MongoDB')
-    return result
+def upload_to_mongodb(json_file):
+    # Convert data to JSON records and Insert data into MongoDB
+    with open(json_file, 'r') as f:
+        data = json.load(f)
+    db.scrapped.insert_many(data)
+
+    # Retrieve the uploaded data from MongoDB
+    uploaded_data = list(collections.find())
+
+    return uploaded_data
 
 
 # Define the Streamlit app
@@ -37,17 +41,20 @@ def main():
     if st.button('Scrape'):
         tweets_df = scrape_twitter_data(hashtag, start_date, end_date, max_tweets)
 
+        # Create JSON file
+        json_file = 'tweets.json'
+        tweets_df.to_json(json_file, orient='records')
+
         # Display data in a table
         st.write(tweets_df)
 
         # Upload data to MongoDB
         if st.button('Upload to MongoDB'):
-            # Upload data to MongoDB
-            upload_to_mongodb(tweets_df)
-            st.success('Data uploaded to MongoDB.')
-
+            uploaded_data = upload_to_mongodb(json_file)
+            # Display result
+            st.write(f'{len(uploaded_data)} documents uploaded to MongoDB')
             # Display the uploaded data in a table
-            st.write(pd.DataFrame(list(collection.find())))
+            st.write(pd.DataFrame(uploaded_data))
 
         # Download data in CSV format
         st.download_button('Download CSV',
