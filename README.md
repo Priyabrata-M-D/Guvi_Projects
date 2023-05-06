@@ -21,4 +21,4 @@ To run this project, you will need to have the following installed:
 
 ## Files
 * Source code is in twitter_scrape.py
-* APP link: https://priyabrata-m-d-guvi-projects-twitter-scrape-on5bv1.streamlit.app/
+* APP link: https://priyabrata-m-d-guvi-projects-twitter-scrape-c8eiif.streamlit.app/
