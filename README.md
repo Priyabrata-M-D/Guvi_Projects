@@ -1,5 +1,6 @@
 # Twitter Scraping
-This project is designed to scrape Twitter data based on user input and store it in a MongoDB database. The data can then be displayed in a Streamlit app and downloaded in CSV and JSON format.
+
+This Interactive Streamlit GUI is designed to scrape Twitter data based on user input (i.e. keywords or hashtags) and store it in a NOSQL database. The data can then be displayed in a Streamlit app and downloadable in CSV and JSON format.
 
 ## Installation
 To run this project, you will need to have the following installed:
@@ -11,12 +12,13 @@ To run this project, you will need to have the following installed:
 ## Usage
 * Clone the repository to your local machine.
 * Install the required Python packages by running pip install -r requirements.txt in your terminal.
-* Set up a MongoDB database and collection to store the scraped data. You can do this by creating an account on MongoDB Atlas or by installing MongoDB locally.
-* In scrape_twitter.py, enter your MongoDB database and collection information in the mongo_client and mongo_collection variables.
-* Run streamlit run app.py in your terminal to launch the Streamlit app.
+* Set up a database connection (I am using mongodb here). You can also use MongoDB Atlas instead of local instance.
+* In twitter_scrapper.py, enter your MongoDB database connection info.  or,
+* Directly Run streamlit app using LInk provided for Application.
 * Enter the hashtag/keyword, date range, and tweet count in the Streamlit app and click the "Scrape" button.
-* The scraped data will be displayed in a table in the Streamlit app. You can click the "Download CSV" or "Download JSON" button to download the data in the respective format.
+* You can click the "Download CSV" or "Download JSON" button to download the data in the respective format.
+* To store data hit the button "Upload to database" or to show the scraped data hit 'show tweets'
 
 ## Files
-* tscrape.py: Python script to scrape Twitter data.
-* sapp.py: Streamlit app to display the scraped data and allow users to download it in CSV and JSON format and Upload data to DB.
+* Source code is in twitter_scrape.py
+* APP link: https://priyabrata-m-d-guvi-projects-twitter-scrape-on5bv1.streamlit.app/
