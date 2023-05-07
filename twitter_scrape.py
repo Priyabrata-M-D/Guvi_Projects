@@ -40,10 +40,8 @@ if inputt:
                     break
                 tweets.append([ twt.date, twt.id, twt.user.username, twt.content, twt.lang, twt.likeCount, twt.replyCount,twt.retweetCount, twt.source, twt.url ])
             tweets_df=pd.DataFrame(tweets,columns=["Date", "ID", "User","Content","Language","Like Count", "Reply Count", "Retweet Count", "Source", "URL", ])
-    except sntwit.TwitterSearchScraper.TwitterSearchScraperError :
-        st.error('Error occurred while searching for tweets using keyword')
-    except sntwit.TwitterHashtagScraper.TwitterHashtagScraperError :
-        st.error('Error occurred while searching for tweets using hashtag')
+    except Exception as e :
+        st.error('Apologies for Inconvenience Cause, Please try again Later')
 else:
   st.warnings("Kindly make a Choice")
 
