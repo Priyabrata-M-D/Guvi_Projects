@@ -1,4 +1,4 @@
-# Twitter Scraping
+# Twitter Scraping With snsscrape
 
 This Interactive Streamlit GUI is designed to scrape Twitter data based on user input (i.e. keywords or hashtags) and store it in a NOSQL database. The data can then be displayed in a Streamlit app and downloadable in CSV and JSON format.
 
